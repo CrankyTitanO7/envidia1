@@ -4,6 +4,16 @@ public class Network {
     public int[] networkShape = {2, 4, 4, 2};
     public Layer[] layers;
 
+    public void retrieveShape (int[] shapedesc) {
+        if (shapedesc.length > 3) {
+            int[] nuwaits = shapedesc;
+            networkShape = nuwaits;
+            
+        } else {
+            throw new IllegalArgumentException("Shape description must have 4+ elements.");
+        }
+    }
+
     public class Layer {
         public float[][] weightsArray;
         public float[] biasesArray;
