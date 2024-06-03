@@ -1,25 +1,41 @@
-from tokenizers import ByteLevelBPETokenizer
+from transformers import AutoTokenizer
 
-# Initialize a tokenizer
-tokenizer = ByteLevelBPETokenizer()
+def tokengen (words, pad, length):
 
-# Train the tokenizer on your dataset
-tokenizer.train(files=["path/to/your/dataset.txt"], vocab_size=30_000, min_frequency=2)
+    tokenizer = AutoTokenizer.from_pretrained("bert-base-cased")
 
-# Save the tokenizer
-tokenizer.save_model("path/to/save")
+    sequence = words
+    tokens = tokenizer.tokenize(sequence)
 
-# Load the tokenizer
-tokenizer = ByteLevelBPETokenizer(
-    "path/to/save/vocab.json",
-    "path/to/save/merges.txt",
-)
+    print(tokens)
 
-# Tokenize some text and save the tokens to a file
-text = "Here is some text to tokenize"
-encoded = tokenizer.encode(text)
+    tokenizer.save_pretrained("envidia\tokens")
 
-# Save tokens and their IDs to a text file
-with open("tokens.txt", "w") as f:
-    for token, token_id in zip(encoded.tokens, encoded.ids):
-        f.write(f"{token}\t{token_id}\n")
+    ids = tokenizer.convert_tokens_to_ids(tokens)
+
+    print(ids)
+
+    model_inputs = tokenizer(sequence)
+
+    if pad > 0 :
+
+        if length == "longest":
+            # Will pad the sequences up to the maximum sequence length
+            model_inputs = tokenizer(sequence, padding="longest")
+        elif pad == 1 :
+            # Will pad the sequences up to the model max length
+            # (512 for BERT or DistilBERT)
+            model_inputs = tokenizer(sequence, padding="max_length")
+        elif pad == 2 :
+            # Will pad the sequences up to the specified max length
+            model_inputs = tokenizer(sequence, padding="max_length", max_length=length)
+    
+    return model_inputs
+
+def decode (array_of_inputs):
+    tokenizer = AutoTokenizer.from_pretrained("bert-base-cased")
+
+    decoded_string = tokenizer.decode(array_of_inputs)
+    print(decoded_string)
+
+    return (decoded_string)
