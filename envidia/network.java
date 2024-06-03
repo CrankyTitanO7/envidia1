@@ -66,7 +66,22 @@ public class Network {
         introduce();
     }
 
-    public float[] brain(float[] inputs) {
+    public float[][][][] brain(float[] inputs) {
+        // Determine the size of the final output layer
+        int finalLayerSize = layers[layers.length - 1].nodesArray.length;
+        int finalLayerSizeA = layers[layers.length - 1].weightsArray.length;
+        // Initialize the output array with the appropriate size
+
+        float[][][][] output = new float[layers.length][1][finalLayerSize][finalLayerSizeA];
+        /*
+        [0][0][0] = output
+        [layers] [1][0] = biases
+        [layers] [2][etc] = weights
+        */
+
+
+        // Forward propagate the input through the network
+
         for(int i = 0; i < layers.length; i++) {
             if(i == 0) {
                 layers[i].forward(inputs);
@@ -78,7 +93,17 @@ public class Network {
                 layers[i].activation();
             }
         }
-        return layers[layers.length - 1].nodesArray;
+        output[0][0][0] =  layers[layers.length - 1].nodesArray;
+
+        for (int i = 0; i < layers.length-1; i++){
+            output[i][1][0] = layers[i].biasesArray;
+        }
+
+        for (int i = 0; i < layers.length-1; i++){
+            output[i][2] = layers[i].weightsArray;
+        }
+
+        return output;
     }
 }
 

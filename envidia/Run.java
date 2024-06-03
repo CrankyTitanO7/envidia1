@@ -29,9 +29,10 @@ public class Run {
         response = innie.getme(sc);
 
         float[] call = innie.convert(response);
-        float[] echo = nn.brain(call);
+        float[][][][] echo = nn.brain(call);
+        float[] irlecho = echo[0][0][0];
 
-        for (float ping : echo) {
+        for (float ping : irlecho) {
             System.out.print(Float.toString(ping));
         }
     }

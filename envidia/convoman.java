@@ -4,7 +4,7 @@ public class convoman {
     public static fileplay f = new fileplay();
 
     public String conversate(float[] input) {
-        String[] tops = f.read("topics.txt");
+        String[] tops = f.read("memory\\topics.txt");
         int longestphraselength = 100; // DELETE THIS LATER: when you actually make phrase files, iterate over each and find the length of them all. 
         //See how long the longest one is.
 
@@ -16,7 +16,8 @@ public class convoman {
         nn.retrieveShape(shape);
         nn.awake();
 
-        float[] topic = nn.brain(input);
+        float[][][][] topic = nn.brain(input);
+        float[] irltopic = topic[0][0][0];
 
         //choose best topic
 
@@ -24,7 +25,7 @@ public class convoman {
         float largest = -1;
 
         for (int i = 0; i < topic.length; i++) {
-            if (topic[i] > largest) {
+            if (irltopic[i] > largest) {
                 choice = i;
                 largest = choice;
             }
@@ -35,9 +36,9 @@ public class convoman {
                         //choose a phrase based on topic
 
         //determine which phrase file to open (no options yet)
-        String[] phrases = f.read("default.txt");
+        String[] phrases = f.read("memory\\phrases\\default.txt");
         if (totalk == "weather"){
-            phrases = f.read("phrases.txt");
+            phrases = f.read("memory\\phrases\\weather.txt");
         }
 
         //awaken a new network to determine phrases
@@ -45,13 +46,14 @@ public class convoman {
         nn.retrieveShape(shapea);
         nn.awake();
 
-        float[] phrasec = nn.brain(input);
+        float[][][][] phrasec = nn.brain(input);
+        float[] irlphrasec = phrasec[0][0][0];
 
         choice = 0;
         largest = -1;
 
         for (int i = 0; i < phrases.length; i++) {
-            if (phrasec[i] > largest) {
+            if (irlphrasec[i] > largest) {
                 choice = i;
                 largest = choice;
             }
