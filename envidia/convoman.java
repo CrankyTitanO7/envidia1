@@ -5,13 +5,14 @@ public class convoman {
 
     public String conversate(float[] input) {
         String[] tops = f.read("topics.txt");
-        String[] phrases = f.read("phrases.txt");
+        int longestphraselength = 100; // DELETE THIS LATER: when you actually make phrase files, iterate over each and find the length of them all. 
+        //See how long the longest one is.
 
         String output = "I don't understand what you mean. Try again.";
 
         //determine topic of convo
 
-        int[] shape = {input.length, 2, 2, phrases.length};
+        int[] shape = {input.length, 2, 2, longestphraselength};
         nn.retrieveShape(shape);
         nn.awake();
 
@@ -31,8 +32,15 @@ public class convoman {
 
         String totalk = tops[choice];
 
-        //choose a phrase based on topic
+                        //choose a phrase based on topic
 
+        //determine which phrase file to open (no options yet)
+        String[] phrases = f.read("default.txt");
+        if (totalk == "weather"){
+            phrases = f.read("phrases.txt");
+        }
+
+        //awaken a new network to determine phrases
         int[] shapea = {input.length, 2, 2, phrases.length};
         nn.retrieveShape(shapea);
         nn.awake();
