@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Run {
     public static Network nn = new Network();
     public static Input innie = new Input();
-    public static convoman civila= new convoman();
+    public static Convoman civila = new convoman();
 
     public static void thinkonce(int[] shapea) {
         int[] mellon = shapea;
