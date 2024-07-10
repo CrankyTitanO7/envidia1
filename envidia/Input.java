@@ -2,11 +2,13 @@ import java.util.Scanner;
 
 public class Input {
 
+    // a short function to get the next line entered in the terminal
     public String getme(Scanner sc) {
         String name = sc.nextLine();
         return name;
     }
 
+    // converts to ASCII from LETTERS (english)
     public float[] convert(String text) {
         String input = text;
         int len = input.length();
@@ -17,20 +19,26 @@ public class Input {
         }
 
         for (int i = 0; i < len; i++){
-            returnme[i] = (float) input.charAt(i);        }
+            returnme[i] = (float) input.charAt(i);        
+        }
         return returnme;
     }
 
-    public void tokenize(String tokenee){
-        String command = "python envidia/tokenizer.py tokengen " + tokenee + " 0";
-        Process p = Runtime.getRuntime().exec( command + param );
-    }
+    // PROBLEM SPOT ------- tokenizers ---- must invoke a python file to tokenize the text, then detokenize again. PROBLEM: Runtime is DEPRICATED :((
+    
+    // public void tokenize(String tokenee){
+    //     String param;
+    //     String command = "python envidia/tokenizer.py tokengen " + tokenee + " 0";
+    //     Process p = Runtime.getRuntime().exec( command + param );
+    // }
 
-    public void detokenize(String[] tokenids){
-        String command = "python envidia/tokenizer.py decode" + tokenids;
-        Process p = Runtime.getRuntime().exec( command + param );
-    }
+    // public void detokenize(String[] tokenids){
+    //     String command = "python envidia/tokenizer.py decode" + tokenids;
+    //     Process p = Runtime.getRuntime().exec( command + param );
+    // }
 
+
+    // here are the questions asked at the very beginning, so that the network is initiated and such
     public int[] interrogate(Scanner sc){
         System.out.println("-- begin interrogation --");
 

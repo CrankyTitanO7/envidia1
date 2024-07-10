@@ -4,10 +4,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+// import java.io;
 import java.util.*;
 
 public class fileplay {
 
+    // a function to read from a text file
     public String[] read(String file){
         List<String> returnme = new ArrayList<String>();
 
@@ -34,7 +36,7 @@ public class fileplay {
     }
 
     
-
+    // a function to write to a text file
     public void write(String file, String[] words){
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))){
@@ -47,12 +49,14 @@ public class fileplay {
             ex.printStackTrace();
         }
     }
-        
+    
+    // a function to delete a text file
     public void del(String file){
         File f= new File(file);
         f.delete();
     }
 
+    // a function to creat a new text file
     public void creat(String file){
         try {  
             File myObj = new File(file);  

@@ -1,4 +1,4 @@
-public class convoman {
+public class Convoman {
     public static Network nn = new Network();
     public static Network nna = new Network();
     public static fileplay f = new fileplay();
@@ -46,9 +46,11 @@ public class convoman {
         nn.retrieveShape(shapea);
         nn.awake();
 
+        //make a new thingy for the purpose of thingying (neural network awakens and the brain arises)
         float[][][][] phrasec = nn.brain(input);
         float[] irlphrasec = phrasec[0][0][0];
 
+        // determine which conversation topic has been selected by the network
         choice = 0;
         largest = -1;
 
@@ -59,6 +61,7 @@ public class convoman {
             }
         }
 
+        //cleanup
         String phrase = phrases[choice];
 
         output = phrase;
