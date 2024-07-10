@@ -21,6 +21,16 @@ public class Input {
         return returnme;
     }
 
+    public void tokenize(String tokenee){
+        String command = "python envidia/tokenizer.py tokengen " + tokenee + " 0";
+        Process p = Runtime.getRuntime().exec( command + param );
+    }
+
+    public void detokenize(String[] tokenids){
+        String command = "python envidia/tokenizer.py decode" + tokenids;
+        Process p = Runtime.getRuntime().exec( command + param );
+    }
+
     public int[] interrogate(Scanner sc){
         System.out.println("-- begin interrogation --");
 

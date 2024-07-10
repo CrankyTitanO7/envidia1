@@ -24,11 +24,11 @@ public class Run {
         // begin a thought
         thinkonce(shapes);
 
-        String response;
+        String responsea;
 
-        response = innie.getme(sc);
+        responsea = innie.getme(sc);
 
-        float[] call = innie.convert(response);
+        float[] call = innie.convert(responsea);
         float[][][][] echo = nn.brain(call);
         float[] irlecho = echo[0][0][0];
 
@@ -38,11 +38,11 @@ public class Run {
     }
 
     public static void convo(Scanner sc){
-        String response;
+        String responseb;
 
-        response = innie.getme(sc);
+        responseb = innie.getme(sc);
 
-        float[] call = innie.convert(response);
+        float[] call = innie.convert(responseb);
         String echo = civila.conversate(call);
 
         System.out.print(echo);

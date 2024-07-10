@@ -1,4 +1,5 @@
 from transformers import AutoTokenizer
+import sys
 
 def tokengen (words, pad, length):
 
@@ -39,3 +40,6 @@ def decode (array_of_inputs):
     print(decoded_string)
 
     return (decoded_string)
+
+if __name__ == '__main__':
+    globals()[sys.argv[1]](sys.argv[2])(sys.argv[3])(sys.argv[4])
