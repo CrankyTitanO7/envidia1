@@ -8,8 +8,21 @@ public class Input {
         return name;
     }
 
+    // decide to tokenize
+    //to tokenize or not to tokenize: that is the question, bruh
+    public float[] convmode(String text, int mode) {
+        if (mode == 1){
+            return convertASCII(text)
+        } else if (mode == 2) {
+            tokenize(text)
+            return [1f, 2f, 3f, 4f, 6f]
+        } else {
+            return [2f, 2f, 2f, 2f, 2f]
+        }
+    }
+
     // converts to ASCII from LETTERS (english)
-    public float[] convert(String text) {
+    public float[] convertASCII(String text) {
         String input = text;
         int len = input.length();
         float[] returnme = new float[len];
@@ -22,6 +35,7 @@ public class Input {
             returnme[i] = (float) input.charAt(i);        
         }
         return returnme;
+        
     }
 
     // PROBLEM SPOT ------- tokenizers ---- must invoke a python file to tokenize the text, then detokenize again. PROBLEM: Runtime is DEPRICATED :((

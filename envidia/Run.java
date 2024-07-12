@@ -31,8 +31,7 @@ public class Run {
         String responsea;
         responsea = innie.getme(sc);
 
-        // convert, think, return values
-        float[] call = innie.convert(responsea);
+        float[] call = innie.convmode(responsea, 1);
         float[][][][] echo = nn.brain(call);
         float[] irlecho = echo[0][0][0];
 
@@ -42,13 +41,14 @@ public class Run {
         }
     }
 
-    // print the lil network's response
+
+    // the loop, not the starter prompt and stuffs
     public static void convo(Scanner sc){
         String responseb;
 
         responseb = innie.getme(sc);
 
-        float[] call = innie.convert(responseb);
+        float[] call = innie.convmode(responseb, 1);
         String echo = civila.conversate(call);
 
         System.out.print(echo);
@@ -59,15 +59,13 @@ public class Run {
         Scanner sc = new Scanner(System.in);
 
         
-
         real(sc);
-        convo(sc);
+        while (innie.getme(sc) != "you know what to do"){
+            convo(sc);
+        }
+        System.out.println("very well. see you around... \n")
 
         //end a thought
-
-
-
-
 
         sc.close();
     }
