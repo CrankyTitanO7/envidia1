@@ -1,5 +1,8 @@
 // run script
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Run {
@@ -16,7 +19,7 @@ public class Run {
     }
 
     // here is the realll dealll. this means thoughts and actions. i hope.
-    public static void real(Scanner sc) {
+    public static void real(Scanner sc, int mode) throws IOException {
         System.out.println("boot sequence: wizard says: type params");
 
         //questions
@@ -35,9 +38,25 @@ public class Run {
         float[][][][] echo = nn.brain(call);
         float[] irlecho = echo[0][0][0];
 
-        // for things in the output array, convert each ASCII to a letter
-        for (float ping : irlecho) {
-            System.out.print(Float.toString(ping));
+        
+
+        if (mode == 0) {
+            innie.decode(irlecho, mode, "0", 0);
+        } else if (mode == 1){
+            // how long is the file
+            String filename = "envidia/memory/tokens.txt";
+            int lines = 0;
+            BufferedReader br = new BufferedReader(new FileReader(filename));
+
+
+            while (br.readLine() != null) {
+                lines++;
+            }
+
+            br.close();
+
+            //input the ai outputs, the mode (tokenizer mode), name of tokenizer storage, and # of lines
+            innie.decode(irlecho, mode, filename, lines);
         }
     }
 
@@ -55,15 +74,15 @@ public class Run {
     }
     
     // the actual the moment you all have been waiting for... the running script!
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
 
         
-        real(sc);
+        real(sc, 0);
         while (innie.getme(sc) != "you know what to do"){
             convo(sc);
         }
-        System.out.println("very well. see you around... \n")
+        System.out.println("very well. see you around... \n");
 
         //end a thought
 

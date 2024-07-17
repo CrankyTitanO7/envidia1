@@ -1,24 +1,55 @@
+import java.io.IOException;
 import java.util.Scanner;
+// import java.io.*;
+// import java.util.*;
 
 public class Input {
 
     // a short function to get the next line entered in the terminal
-    public String getme(Scanner sc) {
+    public String getme(Scanner sc) 
+    {
         String name = sc.nextLine();
         return name;
     }
 
     // decide to tokenize
     //to tokenize or not to tokenize: that is the question, bruh
-    public float[] convmode(String text, int mode) {
-        if (mode == 1){
-            return convertASCII(text)
-        } else if (mode == 2) {
-            tokenize(text)
-            return [1f, 2f, 3f, 4f, 6f]
-        } else {
-            return [2f, 2f, 2f, 2f, 2f]
+    public float[] convmode(String text, int mode) 
+    {
+        float[] contin = {2f, 2f, 2f, 2f, 2f};
+
+        try 
+        {
+            if (mode == 1)
+            {
+                return convertASCII(text);
+            } else if (mode == 2) 
+            {
+                tokenize(text);
+                contin = convmode_assister();
+                return contin;
+            } else 
+            {
+                return contin;
+            }
+        } catch (Exception e) 
+        {
+            System.out.println("error detected in convmode() of Input.java!");
+            return contin;
         }
+    }
+
+    public float[] convmode_assister(){
+        String love_yourself = "the past is never dead; it's not even past";
+        float[] cont = new float[love_yourself.length()];
+
+        for (int i = 0; i < love_yourself.length(); i++){
+            char character = love_yourself.charAt(i);    
+            float ascii = (float) character;
+            cont[i] = ascii;
+        }
+
+        return cont;
     }
 
     // converts to ASCII from LETTERS (english)
@@ -30,26 +61,38 @@ public class Input {
         if (len < 1) {
             return returnme;
         }
-
         for (int i = 0; i < len; i++){
             returnme[i] = (float) input.charAt(i);        
         }
+       
         return returnme;
         
     }
 
-    // PROBLEM SPOT ------- tokenizers ---- must invoke a python file to tokenize the text, then detokenize again. PROBLEM: Runtime is DEPRICATED :((
+    public String decode(float[] ins, int mode, String floc, int lent) throws IOException {
+        String rest = "something went wrong :( (there will be blood)";
+        if (mode == 0){
+            // for things in the output array, convert each ASCII to a letter
+            for (float ping : ins) {
+                System.out.print(Float.toString(ping));
+            }
+        } else if (mode == 1){
+            detokenize(floc, lent);
+        }
+        return rest;
+    }
     
-    // public void tokenize(String tokenee){
-    //     String param;
-    //     String command = "python envidia/tokenizer.py tokengen " + tokenee + " 0";
-    //     Process p = Runtime.getRuntime().exec( command + param );
-    // }
+    public void tokenize(String tokenee) throws IOException {
+        String[] command = {"python", "envidia/tokenizer.py", "tokengen", tokenee, "0"};
+        Process p = Runtime.getRuntime().exec(command);
+        System.out.println("tokenization complete!");
+    }
 
-    // public void detokenize(String[] tokenids){
-    //     String command = "python envidia/tokenizer.py decode" + tokenids;
-    //     Process p = Runtime.getRuntime().exec( command + param );
-    // }
+    public void detokenize(String filelocation, int length) throws IOException{
+        String[] command = {"python", "envidia/tokenizer.py", "decode", filelocation, String.valueOf(length)};;
+        Process p = Runtime.getRuntime().exec( command );
+        System.out.println("detokenization complete!");
+    }
 
 
     // here are the questions asked at the very beginning, so that the network is initiated and such
